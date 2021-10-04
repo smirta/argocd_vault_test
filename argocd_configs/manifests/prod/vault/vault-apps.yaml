@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault
+  namespace: vault
+spec:
+  project: vault
+
+  destination:
+    namespace: vault
+    server: https://kubernetes.default.svc
+
+  syncPolicy:
+    automated: {}
+
+  source:
+    path: hashicorp/vault
+    repoURL: 'https://helm.releases.hashicorp.com'
+    targetRevision: master
+    helm:
+      values: |-
+        vault:
+          enabled: true
+          project: vault
+          destination:
+            server: https://kubernetes.default.svc
+            namespace: vault
+          targetRevision: "0.16.0"
+          values:
+            # Official Vault Helm Chart values
+            global:
+              openshift: true
+            
+            server:
+              ha:
+                enabled: true
+                replicas: 3
+
+                raft:
+                  enabled: true
