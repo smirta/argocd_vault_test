@@ -14,7 +14,7 @@ spec:
     automated: {}
 
   source:
-    path: hashicorp/vault
+    chart: vault
     repoURL: 'https://helm.releases.hashicorp.com'
     targetRevision: master
     helm:
