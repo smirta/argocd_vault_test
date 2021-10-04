@@ -14,8 +14,8 @@ spec:
     automated: {}
 
   source:
-    chart: vault
-    repoURL: 'https://helm.releases.hashicorp.com'
+    path: argocd_configs/manifests/prod/vault 
+    repoURL: 'https://github.com/smirta/argocd_vault_test.git'
     targetRevision: master
     helm:
       values: |-
@@ -25,6 +25,8 @@ spec:
           destination:
             server: https://kubernetes.default.svc
             namespace: vault
+          repoURL: "https://helm.releases.hashicorp.com"
+          chart: "vault"
           targetRevision: "0.16.0"
           values:
             # Official Vault Helm Chart values
